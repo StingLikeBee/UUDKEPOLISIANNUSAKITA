@@ -941,10 +941,10 @@
             
             // Store the text to be copied
             let copyText = `Nama Suspect : ${name}\n`;
-            copyText += `Pasal        : ${pasalList.join(", ")}\n`;
-            copyText += `Pelanggaran  :\n${pelanggaranList.map(item => `- ${item}`).join('\n')}\n`;
-            copyText += `Total Denda  : ${totalDenda.toLocaleString()}\n`;
-            copyText += `Hukuman      : ${punishmentText}`;
+            copyText += `Pasal       : ${pasalList.join(", ")}\n`;
+            copyText += `Pelanggaran :\n${pelanggaranList.map(item => `- ${item}`).join('\n')}\n`;
+            copyText += `Total Denda : ${totalDenda.toLocaleString()}\n`;
+            copyText += `Hukuman     : ${punishmentText}`;
             
             if (!hasDeathPenalty) {
                 if (totalPenjara > 30) {
