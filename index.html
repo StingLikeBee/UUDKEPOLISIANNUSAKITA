@@ -905,7 +905,7 @@
             let punishmentText = "";
             if (hasDeathPenalty) {
                 punishmentText = "HUKUMAN MATI";
-                resultHTML += `<p style="color: #dc3545; font-weight: bold;"><strong>Hukuman:</strong> ${punishmentText}</p>`;
+                resultHTML += `<p style="color: #dc3545; font-weight: bold;"><strong>Hukuman :</strong> ${punishmentText}</p>`;
             } else if (hasRegularPunishment || totalPenjara > 0 || totalImpound > 0) {
                 if (totalPenjara > 0) {
                     punishmentText += `${totalPenjara} bulan penjara`;
@@ -915,13 +915,13 @@
                     if (punishmentText) punishmentText += " dan ";
                     punishmentText += `${totalImpound} Hari Impound`;
                 }
-                resultHTML += `<p><strong>Hukuman:</strong> ${punishmentText}</p>`;
+                resultHTML += `<p><strong>Hukuman :</strong> ${punishmentText}</p>`;
             } else if (hasSocialSanction) {
                 punishmentText = "SANKSI SOSIAL";
-                resultHTML += `<p class="sanksi-sosial"><strong>Hukuman:</strong> ${punishmentText}</p>`;
+                resultHTML += `<p class="sanksi-sosial"><strong>Hukuman :</strong> ${punishmentText}</p>`;
             } else {
                 punishmentText = "SANKSI SOSIAL";
-                resultHTML += `<p class="sanksi-sosial"><strong>Hukuman:</strong> ${punishmentText}</p>`;
+                resultHTML += `<p class="sanksi-sosial"><strong>Hukuman :</strong> ${punishmentText}</p>`;
             }
             
             // Show warnings if limits were applied
