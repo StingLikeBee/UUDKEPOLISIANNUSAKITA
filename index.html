@@ -172,6 +172,16 @@
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
 
+        .sanksi-sosial {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .hukuman-mati {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
         @media (max-width: 768px) {
             table {
                 font-size: 14px;
@@ -242,7 +252,7 @@
                 <td><input type="checkbox"></td>
                 <td>Mabuk Di Tempat Umum</td>
                 <td>2000</td>
-                <td>0</td>
+                <td class="sanksi-sosial">SANKSI SOSIAL</td>
             </tr>
             <tr>
                 <td>a4</td>
@@ -319,14 +329,14 @@
                 <td><input type="checkbox"></td>
                 <td>Perkelahian Di Tempat Umum</td>
                 <td>3000</td>
-                <td>0</td>
+                <td class="sanksi-sosial">SANKSI SOSIAL</td>
             </tr>
             <tr>
                 <td>a15</td>
                 <td><input type="checkbox"></td>
                 <td>Tidak Melengkapi Atribut Berkendara</td>
                 <td>3000</td>
-                <td>0</td>
+                <td class="sanksi-sosial">SANKSI SOSIAL</td>
             </tr>
             <tr>
                 <td>a16</td>
@@ -515,7 +525,7 @@
                 <th>CEKLIS</th>
                 <th>PELANGGARAN</th>
                 <th>DENDA</th>
-                <th>HUKUMAN (BULAN)</th>
+                <th>HUKUMAN</th>
             </tr>
         </thead>
         <tbody>
@@ -552,7 +562,7 @@
                 <td><input type="checkbox"></td>
                 <td>Korupsi Instansi Pemerintahan</td>
                 <td>500000</td>
-                <td>HUKUMAN MATI</td>
+                <td class="hukuman-mati">HUKUMAN MATI</td>
             </tr>
             <tr>
                 <td>c6</td>
@@ -657,7 +667,7 @@
                 <td><input type="checkbox"></td>
                 <td>Terorisme</td>
                 <td>100000</td>
-                <td>HUKUMAN MATI</td>
+                <td class="hukuman-mati">HUKUMAN MATI</td>
             </tr>
         </tbody>
     </table>
@@ -686,14 +696,14 @@
                 <td><input type="checkbox"></td>
                 <td>Melebihi Batas Kecepatan</td>
                 <td>3000</td>
-                <td>0</td>
+                <td class="sanksi-sosial">SANKSI SOSIAL</td>
             </tr>
             <tr>
                 <td>d3</td>
                 <td><input type="checkbox"></td>
                 <td>Kelengkapan Berkendara</td>
                 <td>5000</td>
-                <td>0</td>
+                <td class="sanksi-sosial">SANKSI SOSIAL</td>
             </tr>
             <tr>
                 <td>d4</td>
@@ -749,7 +759,7 @@
                 <td><input type="checkbox"></td>
                 <td>Pelanggaran Lalu Lintas</td>
                 <td>8000</td>
-                <td>0</td>
+                <td class="sanksi-sosial">SANKSI SOSIAL</td>
             </tr>
         </tbody>
     </table>
@@ -876,7 +886,7 @@
             `;
             
             if (hasDeathPenalty) {
-                resultHTML += `<p style="color: red; font-weight: bold;"><strong>Hukuman:</strong> HUKUMAN MATI</p>`;
+                resultHTML += `<p style="color: #dc3545; font-weight: bold;"><strong>Hukuman:</strong> HUKUMAN MATI</p>`;
             } else {
                 if (totalPenjara > 0) {
                     resultHTML += `<p><strong>Total Hukuman Penjara:</strong> ${totalPenjara} bulan</p>`;
