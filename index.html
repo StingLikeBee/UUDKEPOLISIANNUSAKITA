@@ -695,9 +695,9 @@
                     if (checkbox.checked) {
                         const row = checkbox.closest("tr");
                         uuList.push(row.cells[0].textContent);
-                        totalDenda += parseInt(row.cells[2].textContent);
-                        totalPenjara += parseInt(row.cells[3].textContent);
-                        pelanggaranList.push(row.cells[4].textContent);
+                        totalDenda += parseInt(row.cells[3].textContent);
+                        totalPenjara += parseInt(row.cells[4].textContent);
+                        pelanggaranList.push(row.cells[2].textContent);
                     }
                 });
             };
