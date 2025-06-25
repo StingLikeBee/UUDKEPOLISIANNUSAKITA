@@ -64,22 +64,39 @@
             text-align: center;
         }
 
-        .submit-button {
-            background-color: #FFFFFF;
-            color: #002366;
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .submit-button, .reset-button {
             padding: 12px 24px;
             border: none;
             border-radius: 5px;
             font-size: 18px;
             cursor: pointer;
-            display: block;
-            margin: 20px auto;
             font-weight: bold;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+        }
+
+        .submit-button {
+            background-color: #FFFFFF;
+            color: #002366;
+        }
+
+        .reset-button {
+            background-color: #002366;
+            color: white;
         }
 
         .submit-button:hover {
             background-color: #e6e6e6;
+        }
+
+        .reset-button:hover {
+            background-color: #001a4d;
         }
 
         table {
@@ -175,6 +192,15 @@
             
             input[type="text"] {
                 width: 90%;
+            }
+            
+            .button-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .submit-button, .reset-button {
+                width: 100%;
             }
         }
     </style>
@@ -345,7 +371,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+<tr>
                 <td>b1</td>
                 <td><input type="checkbox"></td>
                 <td>Melawan / Melarikan Diri Dari Kepolisian</td>
@@ -493,7 +519,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+<tr>
                 <td>c1</td>
                 <td><input type="checkbox"></td>
                 <td>Car Steal / Pencurian Kendaraan</td>
@@ -636,7 +662,7 @@
         </tbody>
     </table>
 
-    <div class="section-title">PIDANA LALU LINTAS</div>
+    <div class="section-title">PIDANA LALU LINTAS (MAX IMPOUND 3 HARI)</div>
     <table id="offenseTable4">
         <thead>
             <tr>
@@ -734,14 +760,17 @@
             <input type="text" id="name" name="name" placeholder="Masukkan nama...">
 
             <div class="info-box">
-                MAX PENJARA 30 BULAN
+                MAX PENJARA 30 BULAN | MAX IMPOUND 3 HARI
             </div>
 
             <div class="info-box">
                 Seluruh Pelanggaran Yang Ada Di Website Ini Adalah Contoh<br>Dan Tidak Ada Hubungannya Dengan Yang Nyata
             </div>
 
-            <button type="button" class="submit-button" onclick="displayResult()">HITUNG TOTAL DENDA & HUKUMAN</button>
+            <div class="button-container">
+                <button type="button" class="submit-button" onclick="displayResult()">HITUNG TOTAL DENDA & HUKUMAN</button>
+                <button type="button" class="reset-button" onclick="resetForm()">RESET FORMULIR</button>
+            </div>
         </form>
     </div>
     
@@ -812,6 +841,15 @@
                 return;
             }
 
+            // Apply maximum limits
+            if (totalPenjara > 30) {
+                totalPenjara = 30;
+            }
+            
+            if (totalImpound > 3) {
+                totalImpound = 3;
+            }
+
             // Format the result
             let resultHTML = `
                 <h3 style="margin-top: 0; color: #d9534f;">HASIL PERHITUNGAN HUKUMAN</h3>
@@ -832,10 +870,13 @@
                 resultHTML += `<p><strong>Total Impound Kendaraan:</strong> ${totalImpound} hari</p>`;
             }
             
-            // Apply maximum prison limit
+            // Show warnings if limits were applied
             if (totalPenjara > 30) {
                 resultHTML += `<p style="color: red; font-weight: bold;">⚠️ Total hukuman penjara melebihi batas maksimum (30 bulan), dikurangi menjadi 30 bulan</p>`;
-                totalPenjara = 30;
+            }
+            
+            if (totalImpound > 3) {
+                resultHTML += `<p style="color: red; font-weight: bold;">⚠️ Total impound melebihi batas maksimum (3 hari), dikurangi menjadi 3 hari</p>`;
             }
 
             resultBox.innerHTML = resultHTML;
@@ -843,6 +884,25 @@
             
             // Scroll to result
             resultBox.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function resetForm() {
+            // Clear name field
+            document.getElementById("name").value = "";
+            
+            // Uncheck all checkboxes
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            
+            // Hide result box
+            document.getElementById("resultBox").style.display = "none";
+            
+            // Scroll to top
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
     </script>
 </body>
