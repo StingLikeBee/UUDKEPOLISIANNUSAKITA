@@ -656,7 +656,7 @@
             <input type="text" id="name" name="name" placeholder="Masukkan nama...">
 
             <div class="info-box">
-                MAX 
+                MAX PENJARA 30
             </div>
 
             <div class="info-box">
@@ -695,9 +695,9 @@
                     if (checkbox.checked) {
                         const row = checkbox.closest("tr");
                         uuList.push(row.cells[0].textContent);
-                        pelanggaranList.push(row.cells[2].textContent);
                         totalDenda += parseInt(row.cells[3].textContent);
                         totalPenjara += parseInt(row.cells[4].textContent);
+                        pelanggaranList.push(row.cells[2].textContent);
                     }
                 });
             };
