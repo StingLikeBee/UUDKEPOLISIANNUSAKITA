@@ -71,7 +71,7 @@
             margin: 20px 0;
         }
 
-        .submit-button, .reset-button {
+        .submit-button, .reset-button, .copy-button {
             padding: 12px 24px;
             border: none;
             border-radius: 5px;
@@ -91,12 +91,23 @@
             color: white;
         }
 
+        .copy-button {
+            background-color: #28a745;
+            color: white;
+            margin: 10px auto;
+            display: block;
+        }
+
         .submit-button:hover {
             background-color: #e6e6e6;
         }
 
         .reset-button:hover {
             background-color: #001a4d;
+        }
+
+        .copy-button:hover {
+            background-color: #218838;
         }
 
         table {
@@ -170,6 +181,7 @@
             text-align: left;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            position: relative;
         }
 
         .sanksi-sosial {
@@ -209,7 +221,7 @@
                 gap: 10px;
             }
             
-            .submit-button, .reset-button {
+            .submit-button, .reset-button, .copy-button {
                 width: 100%;
             }
         }
@@ -561,7 +573,7 @@
                 <td>c5</td>
                 <td><input type="checkbox"></td>
                 <td>Korupsi Instansi Pemerintahan</td>
-                <td>500000</td>
+                <td>50000</td>
                 <td class="hukuman-mati">HUKUMAN MATI</td>
             </tr>
             <tr>
@@ -780,10 +792,11 @@
     </div>
     
     <div class="result-box" id="resultBox"></div>
+    <button class="copy-button" id="copyButton" style="display: none;" onclick="copyResult()">SALIN HASIL</button>
 
-            <div class="button-container">
-                <button type="button" class="reset-button" onclick="resetForm()">RESET</button>
-            </div>
+    <div class="button-container">
+        <button type="button" class="reset-button" onclick="resetForm()">RESET</button>
+    </div>
 
     <div class="footer">
         Made By : fipef12<br>© 2025 Kepolisian Nusa Kita
@@ -793,10 +806,12 @@
         function displayResult() {
             const name = document.getElementById("name").value.trim();
             const resultBox = document.getElementById("resultBox");
+            const copyButton = document.getElementById("copyButton");
             
             // Clear previous result
             resultBox.innerHTML = "";
             resultBox.style.display = "none";
+            copyButton.style.display = "none";
 
             if (!name) {
                 resultBox.style.display = "block";
@@ -887,20 +902,26 @@
             `;
             
             // Determine the punishment based on priority
+            let punishmentText = "";
             if (hasDeathPenalty) {
-                resultHTML += `<p style="color: #dc3545; font-weight: bold;"><strong>Hukuman:</strong> HUKUMAN MATI</p>`;
+                punishmentText = "HUKUMAN MATI";
+                resultHTML += `<p style="color: #dc3545; font-weight: bold;"><strong>Hukuman:</strong> ${punishmentText}</p>`;
             } else if (hasRegularPunishment || totalPenjara > 0 || totalImpound > 0) {
                 if (totalPenjara > 0) {
-                    resultHTML += `<p><strong>Total Hukuman Penjara:</strong> ${totalPenjara} bulan</p>`;
+                    punishmentText += `${totalPenjara} bulan penjara`;
                 }
                 
                 if (totalImpound > 0) {
-                    resultHTML += `<p><strong>Total Impound Kendaraan:</strong> ${totalImpound} hari</p>`;
+                    if (punishmentText) punishmentText += " dan ";
+                    punishmentText += `${totalImpound} hari impound`;
                 }
+                resultHTML += `<p><strong>Hukuman:</strong> ${punishmentText}</p>`;
             } else if (hasSocialSanction) {
-                resultHTML += `<p class="sanksi-sosial"><strong>Hukuman:</strong> SANKSI SOSIAL</p>`;
+                punishmentText = "SANKSI SOSIAL";
+                resultHTML += `<p class="sanksi-sosial"><strong>Hukuman:</strong> ${punishmentText}</p>`;
             } else {
-                resultHTML += `<p class="sanksi-sosial"><strong>Hukuman:</strong> SANKSI SOSIAL</p>`;
+                punishmentText = "SANKSI SOSIAL";
+                resultHTML += `<p class="sanksi-sosial"><strong>Hukuman:</strong> ${punishmentText}</p>`;
             }
             
             // Show warnings if limits were applied
@@ -916,9 +937,50 @@
 
             resultBox.innerHTML = resultHTML;
             resultBox.style.display = "block";
+            copyButton.style.display = "block";
+            
+            // Store the text to be copied
+            let copyText = `Nama Suspect: ${name}\n`;
+            copyText += `Pasal: ${pasalList.join(", ")}\n`;
+            copyText += `Pelanggaran:\n${pelanggaranList.map(item => `- ${item}`).join('\n')}\n`;
+            copyText += `Total Denda: ${totalDenda.toLocaleString()}\n`;
+            copyText += `Hukuman: ${punishmentText}`;
+            
+            if (!hasDeathPenalty) {
+                if (totalPenjara > 30) {
+                    copyText += "\n⚠️ Total hukuman penjara melebihi batas maksimum (30 bulan), dikurangi menjadi 30 bulan";
+                }
+                if (totalImpound > 3) {
+                    copyText += "\n⚠️ Total impound melebihi batas maksimum (3 hari), dikurangi menjadi 3 hari";
+                }
+            }
+            
+            resultBox.dataset.copyText = copyText;
             
             // Scroll to result
             resultBox.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function copyResult() {
+            const resultBox = document.getElementById("resultBox");
+            const copyText = resultBox.dataset.copyText;
+            
+            navigator.clipboard.writeText(copyText).then(() => {
+                // Show feedback
+                const copyButton = document.getElementById("copyButton");
+                const originalText = copyButton.textContent;
+                copyButton.textContent = "Tersalin!";
+                copyButton.style.backgroundColor = "#5cb85c";
+                
+                // Reset button after 2 seconds
+                setTimeout(() => {
+                    copyButton.textContent = originalText;
+                    copyButton.style.backgroundColor = "#28a745";
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert("Gagal menyalin teks. Silakan coba lagi.");
+            });
         }
 
         function resetForm() {
@@ -930,8 +992,9 @@
                 checkbox.checked = false;
             });
             
-            // Hide result box
+            // Hide result box and copy button
             document.getElementById("resultBox").style.display = "none";
+            document.getElementById("copyButton").style.display = "none";
             
             // Scroll to top
             window.scrollTo({
