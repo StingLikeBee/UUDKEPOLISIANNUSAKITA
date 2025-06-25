@@ -944,9 +944,9 @@
             copyText += `Pasal           : ${pasalList.join(", ")}\n`;
             copyText += `Pelanggaran     :\n${pelanggaranList.map(item => `- ${item}`).join('\n')}\n`;
             copyText += `Total Denda     : ${totalDenda.toLocaleString()}\n`;
-            copyText += `Hukuman         : ${punishmentText}`;
-            copyText += `Waktu & Tanggal : `;
-            copyText += `Narasi          : `;
+            copyText += `Hukuman         : ${punishmentText}\n`;
+            copyText += `Waktu & Tanggal : \n`;
+            copyText += `Narasi          : \n`;
             
             if (!hasDeathPenalty) {
                 if (totalPenjara > 30) {
