@@ -64,26 +64,39 @@
             text-align: center;
         }
 
-        .submit-button {
-            background-color: #FFFFFF;
-            color: #002366;
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .submit-button, .reset-button {
             padding: 12px 24px;
             border: none;
             border-radius: 5px;
             font-size: 18px;
             cursor: pointer;
-            display: inline-block;
-            margin: 20px 10px;
             font-weight: bold;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+        }
+
+        .submit-button {
+            background-color: #FFFFFF;
+            color: #002366;
+        }
+
+        .reset-button {
+            background-color: #002366;
+            color: white;
         }
 
         .submit-button:hover {
             background-color: #e6e6e6;
         }
 
-        .button-container {
-            text-align: center;
+        .reset-button:hover {
+            background-color: #001a4d;
         }
 
         table {
@@ -159,18 +172,13 @@
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
 
-        .death-penalty {
-            color: red;
+        .sanksi-sosial {
+            color: #28a745;
             font-weight: bold;
         }
 
-        .social-sanction {
-            color: blue;
-            font-weight: bold;
-        }
-
-        .impound-warning {
-            color: #d9534f;
+        .hukuman-mati {
+            color: #dc3545;
             font-weight: bold;
         }
 
@@ -196,9 +204,13 @@
                 width: 90%;
             }
             
-            .submit-button {
-                padding: 10px 20px;
-                margin: 10px 5px;
+            .button-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .submit-button, .reset-button {
+                width: 100%;
             }
         }
     </style>
@@ -240,7 +252,7 @@
                 <td><input type="checkbox"></td>
                 <td>Mabuk Di Tempat Umum</td>
                 <td>2000</td>
-                <td class="social-sanction">SANKSI SOSIAL</td>
+                <td class="sanksi-sosial">SANKSI SOSIAL</td>
             </tr>
             <tr>
                 <td>a4</td>
@@ -317,14 +329,14 @@
                 <td><input type="checkbox"></td>
                 <td>Perkelahian Di Tempat Umum</td>
                 <td>3000</td>
-                <td class="social-sanction">SANKSI SOSIAL</td>
+                <td class="sanksi-sosial">SANKSI SOSIAL</td>
             </tr>
             <tr>
                 <td>a15</td>
                 <td><input type="checkbox"></td>
                 <td>Tidak Melengkapi Atribut Berkendara</td>
                 <td>3000</td>
-                <td class="social-sanction">SANKSI SOSIAL</td>
+                <td class="sanksi-sosial">SANKSI SOSIAL</td>
             </tr>
             <tr>
                 <td>a16</td>
@@ -369,7 +381,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+<tr>
                 <td>b1</td>
                 <td><input type="checkbox"></td>
                 <td>Melawan / Melarikan Diri Dari Kepolisian</td>
@@ -517,7 +529,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
+<tr>
                 <td>c1</td>
                 <td><input type="checkbox"></td>
                 <td>Car Steal / Pencurian Kendaraan</td>
@@ -549,8 +561,8 @@
                 <td>c5</td>
                 <td><input type="checkbox"></td>
                 <td>Korupsi Instansi Pemerintahan</td>
-                <td>50000</td>
-                <td class="death-penalty">HUKUMAN MATI</td>
+                <td>500000</td>
+                <td class="hukuman-mati">HUKUMAN MATI</td>
             </tr>
             <tr>
                 <td>c6</td>
@@ -578,14 +590,14 @@
                 <td><input type="checkbox"></td>
                 <td>Pembunuhan Instansi</td>
                 <td>75000</td>
-                <td class="death-penalty">HUKUMAN MATI</td>
+                <td>60</td>
             </tr>
             <tr>
                 <td>c10</td>
                 <td><input type="checkbox"></td>
                 <td>Pembunuhan Warga</td>
                 <td>50000</td>
-                <td class="death-penalty">HUKUMAN MATI</td>
+                <td>60</td>
             </tr>
             <tr>
                 <td>c11</td>
@@ -655,7 +667,7 @@
                 <td><input type="checkbox"></td>
                 <td>Terorisme</td>
                 <td>100000</td>
-                <td class="death-penalty">HUKUMAN MATI</td>
+                <td class="hukuman-mati">HUKUMAN MATI</td>
             </tr>
         </tbody>
     </table>
@@ -684,14 +696,14 @@
                 <td><input type="checkbox"></td>
                 <td>Melebihi Batas Kecepatan</td>
                 <td>3000</td>
-                <td>0</td>
+                <td class="sanksi-sosial">SANKSI SOSIAL</td>
             </tr>
             <tr>
                 <td>d3</td>
                 <td><input type="checkbox"></td>
                 <td>Kelengkapan Berkendara</td>
                 <td>5000</td>
-                <td>0</td>
+                <td class="sanksi-sosial">SANKSI SOSIAL</td>
             </tr>
             <tr>
                 <td>d4</td>
@@ -747,7 +759,7 @@
                 <td><input type="checkbox"></td>
                 <td>Pelanggaran Lalu Lintas</td>
                 <td>8000</td>
-                <td>0</td>
+                <td class="sanksi-sosial">SANKSI SOSIAL</td>
             </tr>
         </tbody>
     </table>
@@ -758,24 +770,23 @@
             <input type="text" id="name" name="name" placeholder="Masukkan nama...">
 
             <div class="info-box">
-                MAX PENJARA 30 BULAN | MAX IMPOUND 3 HARI
-            </div>
-
-            <div class="info-box">
-                Seluruh Pelanggaran Yang Ada Di Website Ini Adalah Contoh<br>Dan Tidak Ada Hubungannya Dengan Yang Nyata
+                MAX PENJARA 30 BULAN<br>MAX IMPOUND 3 HARI<br>TOTAL HUKUMAN TIDAK ADA (0) = SANKSI SOSIAL
             </div>
 
             <div class="button-container">
                 <button type="button" class="submit-button" onclick="displayResult()">HITUNG TOTAL DENDA & HUKUMAN</button>
-                <button type="button" class="submit-button" onclick="resetForm()">RESET</button>
             </div>
         </form>
     </div>
     
     <div class="result-box" id="resultBox"></div>
 
+            <div class="button-container">
+                <button type="button" class="reset-button" onclick="resetForm()">RESET</button>
+            </div>
+
     <div class="footer">
-        By : fipef12 | © 2023 Kepolisian Nusa Kita
+        Made By : fipef12<br>© 2025 Kepolisian Nusa Kita
     </div>
 
     <script>
@@ -800,6 +811,7 @@
             let totalImpound = 0;
             let hasDeathPenalty = false;
             let hasSocialSanction = false;
+            let hasRegularPunishment = false;
 
             // Function to collect data from a table
             const collectData = (tableId) => {
@@ -817,20 +829,21 @@
                         const denda = parseInt(cells[3].textContent.replace(/\D/g, '')) || 0;
                         totalDenda += denda;
                         
-                        // Check for special punishments
-                        const punishmentText = cells[4].textContent.trim();
+                        // Check punishment type
+                        const punishmentText = cells[4].textContent;
                         
-                        if (punishmentText === "HUKUMAN MATI") {
+                        if (punishmentText.includes("HUKUMAN MATI")) {
                             hasDeathPenalty = true;
-                        } else if (punishmentText === "SANKSI SOSIAL") {
+                        } else if (punishmentText.includes("SANKSI SOSIAL")) {
                             hasSocialSanction = true;
-                        } else {
+                        } else if (punishmentText.match(/\d+/)) {
+                            hasRegularPunishment = true;
                             // Check if this is the impound table
                             if (tableId === "offenseTable4") {
-                                const impound = parseInt(punishmentText) || 0;
+                                const impound = parseInt(punishmentText.match(/\d+/)[0]) || 0;
                                 totalImpound += impound;
                             } else {
-                                const penjara = parseInt(punishmentText) || 0;
+                                const penjara = parseInt(punishmentText.match(/\d+/)[0]) || 0;
                                 totalPenjara += penjara;
                             }
                         }
@@ -850,11 +863,15 @@
                 return;
             }
 
-            // Apply maximum impound limit (3 days)
-            let impoundWarning = "";
-            if (totalImpound > 3) {
-                impoundWarning = `<span class="impound-warning"> (dikurangi dari ${totalImpound} hari karena melebihi batas maksimum)</span>`;
-                totalImpound = 3;
+            // Apply maximum limits if no death penalty
+            if (!hasDeathPenalty) {
+                if (totalPenjara > 30) {
+                    totalPenjara = 30;
+                }
+                
+                if (totalImpound > 3) {
+                    totalImpound = 3;
+                }
             }
 
             // Format the result
@@ -866,29 +883,35 @@
                 <ul style="padding-left: 20px; margin-top: 5px;">
                     ${pelanggaranList.map(item => `<li>${item}</li>`).join('')}
                 </ul>
-                <p><strong>Total Denda:</strong> Rp${totalDenda.toLocaleString()}</p>
+                <p><strong>Total Denda:</strong> ${totalDenda.toLocaleString()}</p>
             `;
             
+            // Determine the punishment based on priority
             if (hasDeathPenalty) {
-                resultHTML += `<p class="death-penalty"><strong>Hukuman:</strong> HUKUMAN MATI</p>`;
-            } else {
+                resultHTML += `<p style="color: #dc3545; font-weight: bold;"><strong>Hukuman:</strong> HUKUMAN MATI</p>`;
+            } else if (hasRegularPunishment || totalPenjara > 0 || totalImpound > 0) {
                 if (totalPenjara > 0) {
-                    // Apply maximum prison limit
-                    if (totalPenjara > 30) {
-                        resultHTML += `<p><strong>Total Hukuman Penjara:</strong> 30 bulan (dikurangi dari ${totalPenjara} bulan karena melebihi batas maksimum)</p>`;
-                        totalPenjara = 30;
-                    } else {
-                        resultHTML += `<p><strong>Total Hukuman Penjara:</strong> ${totalPenjara} bulan</p>`;
-                    }
+                    resultHTML += `<p><strong>Total Hukuman Penjara:</strong> ${totalPenjara} bulan</p>`;
                 }
                 
-                if (hasSocialSanction) {
-                    resultHTML += `<p class="social-sanction"><strong>Tambahan Hukuman:</strong> SANKSI SOSIAL</p>`;
+                if (totalImpound > 0) {
+                    resultHTML += `<p><strong>Total Impound Kendaraan:</strong> ${totalImpound} hari</p>`;
                 }
+            } else if (hasSocialSanction) {
+                resultHTML += `<p class="sanksi-sosial"><strong>Hukuman:</strong> SANKSI SOSIAL</p>`;
+            } else {
+                resultHTML += `<p class="sanksi-sosial"><strong>Hukuman:</strong> SANKSI SOSIAL</p>`;
             }
             
-            if (totalImpound > 0) {
-                resultHTML += `<p><strong>Total Impound Kendaraan:</strong> ${totalImpound} hari${impoundWarning}</p>`;
+            // Show warnings if limits were applied
+            if (!hasDeathPenalty) {
+                if (totalPenjara > 30) {
+                    resultHTML += `<p style="color: red; font-weight: bold;">⚠️ Total hukuman penjara melebihi batas maksimum (30 bulan), dikurangi menjadi 30 bulan</p>`;
+                }
+                
+                if (totalImpound > 3) {
+                    resultHTML += `<p style="color: red; font-weight: bold;">⚠️ Total impound melebihi batas maksimum (3 hari), dikurangi menjadi 3 hari</p>`;
+                }
             }
 
             resultBox.innerHTML = resultHTML;
@@ -899,13 +922,13 @@
         }
 
         function resetForm() {
-            // Clear all checkboxes
+            // Clear name field
+            document.getElementById("name").value = "";
+            
+            // Uncheck all checkboxes
             document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
                 checkbox.checked = false;
             });
-            
-            // Clear name field
-            document.getElementById("name").value = "";
             
             // Hide result box
             document.getElementById("resultBox").style.display = "none";
