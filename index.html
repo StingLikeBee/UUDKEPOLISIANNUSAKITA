@@ -71,7 +71,7 @@
             margin: 20px 0;
         }
 
-        .submit-button, .reset-button, .copy-button, .ro-button {
+        .submit-button, .reset-button, .copy-button {
             padding: 12px 24px;
             border: none;
             border-radius: 5px;
@@ -97,7 +97,7 @@
         }
 
         .ro-button {
-            background-color: #fca72c;
+            background-color: #6c757d;
             color: white;
         }
 
@@ -201,12 +201,11 @@
             font-weight: bold;
         }
 
-        .button-group {
+        .copy-button-container {
             display: flex;
             justify-content: center;
             gap: 10px;
             margin: 10px auto;
-            max-width: 800px;
         }
 
         @media (max-width: 768px) {
@@ -231,7 +230,7 @@
                 width: 90%;
             }
             
-            .button-container, .button-group {
+            .button-container, .copy-button-container {
                 flex-direction: column;
                 gap: 10px;
             }
@@ -807,9 +806,9 @@
     </div>
     
     <div class="result-box" id="resultBox"></div>
-    <div class="button-group" id="buttonGroup" style="display: none;">
-        <button class="copy-button" id="copyButton" onclick="copyResult()">SALIN HASIL</button>
-        <button class="ro-button" id="roButton" onclick="copyRO()">/RO</button>
+    <div class="copy-button-container">
+        <button class="copy-button" id="copyButton" style="display: none;" onclick="copyResult()">SALIN HASIL</button>
+        <button class="copy-button ro-button" id="roButton" style="display: none;" onclick="copyRO()">/RO</button>
     </div>
 
     <div class="button-container">
@@ -824,12 +823,14 @@
         function displayResult() {
             const name = document.getElementById("name").value.trim();
             const resultBox = document.getElementById("resultBox");
-            const buttonGroup = document.getElementById("buttonGroup");
+            const copyButton = document.getElementById("copyButton");
+            const roButton = document.getElementById("roButton");
             
             // Clear previous result
             resultBox.innerHTML = "";
             resultBox.style.display = "none";
-            buttonGroup.style.display = "none";
+            copyButton.style.display = "none";
+            roButton.style.display = "none";
 
             if (!name) {
                 resultBox.style.display = "block";
@@ -955,7 +956,8 @@
 
             resultBox.innerHTML = resultHTML;
             resultBox.style.display = "block";
-            buttonGroup.style.display = "flex";
+            copyButton.style.display = "block";
+            roButton.style.display = "block";
             
             // Store the text to be copied
             let copyText = "```\n"; // Awal tanda ``` (paling atas)
@@ -979,11 +981,8 @@
                 }
             }
             
-            // Simpan data untuk salinan
             resultBox.dataset.copyText = copyText;
-            resultBox.dataset.pasalList = pasalList.join(", ");
-            resultBox.dataset.totalDenda = totalDenda.toLocaleString();
-            resultBox.dataset.punishmentText = punishmentText;
+            resultBox.dataset.roText = `P : ${pasalList.join(", ")} | D : ${totalDenda.toLocaleString()} | H : ${punishmentText}`;
             
             // Scroll to result
             resultBox.scrollIntoView({ behavior: 'smooth' });
@@ -1013,11 +1012,7 @@
 
         function copyRO() {
             const resultBox = document.getElementById("resultBox");
-            const pasalList = resultBox.dataset.pasalList ? resultBox.dataset.pasalList.split(',') : [];
-            const totalDenda = resultBox.dataset.totalDenda || "0";
-            const punishmentText = resultBox.dataset.punishmentText || "SANKSI SOSIAL";
-            
-            let roText = `/RO P : ${pasalList.join(',')} | D : ${totalDenda} | H : ${punishmentText}`;
+            const roText = resultBox.dataset.roText;
             
             navigator.clipboard.writeText(roText).then(() => {
                 // Show feedback
@@ -1029,7 +1024,7 @@
                 // Reset button after 2 seconds
                 setTimeout(() => {
                     roButton.textContent = originalText;
-                    roButton.style.backgroundColor = "#fca72c";
+                    roButton.style.backgroundColor = "#6c757d";
                 }, 2000);
             }).catch(err => {
                 console.error('Failed to copy: ', err);
@@ -1046,9 +1041,10 @@
                 checkbox.checked = false;
             });
             
-            // Hide result box and button group
+            // Hide result box and copy button
             document.getElementById("resultBox").style.display = "none";
-            document.getElementById("buttonGroup").style.display = "none";
+            document.getElementById("copyButton").style.display = "none";
+            document.getElementById("roButton").style.display = "none";
             
             // Scroll to top
             window.scrollTo({
