@@ -97,7 +97,7 @@
         }
 
         .ro-button {
-            background-color: #6c757d;
+            background-color: #e38d14;
             color: white;
         }
 
@@ -796,7 +796,7 @@
             <input type="text" id="name" name="name" placeholder="Masukkan nama...">
 
             <div class="info-box">
-                MAX PENJARA 30 BULAN<br>MAX IMPOUND 3 HARI<br>TOTAL HUKUMAN TIDAK ADA (0) = SANKSI SOSIAL
+                MAX PENJARA 30 BULAN<br>MAX IMPOUND 3 HARI<br>SANKSI SOSIAL = HUKUMAN<br>HUKUMAN MATI = CK
             </div>
 
             <div class="button-container">
@@ -982,7 +982,7 @@
             }
             
             resultBox.dataset.copyText = copyText;
-            resultBox.dataset.roText = `P : ${pasalList.join(", ")} | D : ${totalDenda.toLocaleString()} | H : ${punishmentText}`;
+            resultBox.dataset.roText = `/RO P : ${pasalList.join(",")} | D : ${totalDenda.toLocaleString()} | H : ${punishmentText}`;
             
             // Scroll to result
             resultBox.scrollIntoView({ behavior: 'smooth' });
@@ -1024,7 +1024,7 @@
                 // Reset button after 2 seconds
                 setTimeout(() => {
                     roButton.textContent = originalText;
-                    roButton.style.backgroundColor = "#6c757d";
+                    roButton.style.backgroundColor = "#e38d14";
                 }, 2000);
             }).catch(err => {
                 console.error('Failed to copy: ', err);
