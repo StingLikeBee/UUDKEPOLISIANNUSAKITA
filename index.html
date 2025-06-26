@@ -796,7 +796,7 @@
             <input type="text" id="name" name="name" placeholder="Masukkan nama...">
 
             <div class="info-box">
-                MAX PENJARA 30 BULAN<br>MAX IMPOUND 3 HARI<br>SANKSI SOSIAL = HUKUMAN<br>HUKUMAN MATI = CK
+                MAX PENJARA = 30 BULAN<br>MAX IMPOUND = 3 HARI<br>SANKSI SOSIAL = HUKUMAN<br>HUKUMAN MATI = CK
             </div>
 
             <div class="button-container">
@@ -982,7 +982,7 @@
             }
             
             resultBox.dataset.copyText = copyText;
-            resultBox.dataset.roText = `/RO P : ${pasalList.join(",")} | D : ${totalDenda.toLocaleString()} | H : ${punishmentText}`;
+            resultBox.dataset.roText = `/RO P : ${pasalList.join(", ")} | D : ${totalDenda.toLocaleString()} | H : ${punishmentText}`;
             
             // Scroll to result
             resultBox.scrollIntoView({ behavior: 'smooth' });
